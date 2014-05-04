@@ -56,6 +56,7 @@ $(document).ready(function(){
                         $('#result').text("代码发布成功");
                         $('#title').val("");
                         $('#content').val("");
+                        isSaved=true;
                         clearTimeout(timer);  
                     }
                     else
