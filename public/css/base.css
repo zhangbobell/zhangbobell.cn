@@ -1,0 +1,132 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2014-3-26, 21:19:35
+    Author     : ibm
+*/
+*
+{
+    margin: 0;
+    padding: 0;
+}
+body
+{
+    font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif;
+}
+.background
+{
+   background-image: url("../images/bg_02.jpg"); 
+   background-repeat: no-repeat;
+   min-width: 985px;
+   min-height: 640px;
+   width: 100%;
+   height: 750px;
+   overflow: hidden;
+   background-size: cover;
+   background-position: 50% 90%;
+}
+.top
+{
+    width: 100%;
+    height: 60px;
+    background-color: rgba(3, 3, 18, 0.290196);
+}
+.navBar
+{
+    width: 985px;
+    height: 60px;
+    margin:0px auto;
+}
+.navBar li
+{
+    float: left;
+    width: 100px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    list-style-type: none;
+}
+.navBar .logo
+{
+    float: left;
+    line-height: 60px;    
+    margin-top: 21px;
+}
+.navBar li a:link
+{
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+}
+.navBar li a:visited
+{
+    color: #fff;
+}
+.navBar li a:hover
+{
+    color:#66f;     
+}
+.navBar li a:active
+{
+    color: #66f;
+}
+.codeList
+{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.codeList span
+{
+    font-size: 14px;
+    font-weight: bold;
+    color: #999;
+}
+.codeList li
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    list-style-position: inside;
+}
+.codeList li a:link
+{
+    color: #555;
+    text-decoration: none;
+}
+.codeList li a:visited
+{
+    color:#555;
+}
+.codeList li a:hover
+{
+    color: #003399;
+    text-decoration: underline;
+}
+
+.codeList li a:active
+{
+    color: #ba2636;
+}
+
+#result
+{
+    color: #f00;
+    font-weight: bold;
+}
+#content p
+{
+    line-height: 1.5em;
+    margin-bottom: 20px;
+    text-indent: 2em;
+}
+
+#recentArticle li
+{
+    width:208px; 
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:clip;
+    list-style-type: inside;
+}
