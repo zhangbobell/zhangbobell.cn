@@ -21,7 +21,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
             <ul class="navBar">
                 <a href="<?php echo base_url();?>"><img class="logo" src="<?php echo base_url();?>public/images/logo.png" width="125px" height="18px" alt="logo" /></a>
                 <li><a href="<?php echo base_url();?>">主页</a></li>
-                <li><a href="<?php echo base_url();?>code/codeList">LeetCode</a></li>
+                <li><a href="<?php echo base_url();?>code/codeList">代码</a></li>
                 <li><a href="<?php echo base_url();?>code/feelings">心情</a></li>
                 <li><a href="<?php echo base_url();?>code/updateInfo">更新</a></li>
             </ul>
