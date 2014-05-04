@@ -29,11 +29,13 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
             <ul class="navBar">
                 <a href="<?php echo base_url();?>"><img class="logo" src="<?php echo base_url();?>public/images/logo.png" width="125px" height="18px" alt="logo" /></a>
                 <li><a href="<?php echo base_url();?>">主页</a></li>
-                <li><a href="<?php echo base_url();?>code/codeList">代码</a></li>
+                <li><a href="<?php echo base_url();?>code/codeList">LeetCode</a></li>
+                <li><a href="<?php echo base_url();?>code/feelings">心情</a></li>
+                <li><a href="<?php echo base_url();?>code/updateInfo">更新</a></li>
             </ul>
     </div>
         <div class="auto mt20 w980"><h2 class="ml20 mr20"><?php echo $code->title;?></h2></div>
-        <div class="auto mt20 w980"><h6 class="ml20 mr20"><?php echo $code->updatetime;?></h6></div>
+        <div class="auto mt20 w980"><h6 class="ml20 mr20">更新时间：<?php echo $code->updatetime;?>&nbsp;&nbsp;阅读数：<?php echo $code->click;?></h6></div>
     <div class="auto mt5 w980">
         <div class="l w680 pl20 pr20 mt5 mb30" id="content">         
             <?php echo $code->content;?>
