@@ -7,7 +7,7 @@
 
 var gvid=-1;//全局vid
 var isSaved=false;//全局变量，是否保存
-var saveType=0;
+var saveType=0;//保存类型
 
 $(document).ready(function(){
     KindEditor.ready(function(K) {

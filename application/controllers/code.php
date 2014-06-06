@@ -30,6 +30,7 @@ class Code extends CI_Controller
             $data['code']->content = $item['content'];
         }
         
+        //最近更新的5篇文章
         $sql="select `title` from `code` where `saveType`='1' order by `updatetime` DESC LIMIT 5";
         $query = $this->db->query($sql);
         foreach ($query->result_array() as $item)
@@ -37,6 +38,7 @@ class Code extends CI_Controller
             $data['lasted'][] = $item['title'];
         }
         
+        //浏览时浏览量自增
         $sql="UPDATE `code` SET `click`=`click`+1 WHERE `title`='". urldecode($title) ."' LIMIT 1";
         $query = $this->db->query($sql);
         
@@ -141,14 +143,16 @@ class Code extends CI_Controller
         $cid = $this->input->post('cid', true);
         $click = $this->input->post('click', true);
         $vid = $this->input->post('vid', true);
-        $content = $_POST['content'];//$this->input->post('content', true);
+        $content = $_POST['content'];
         
         date_default_timezone_set('Asia/Shanghai');
         if($saveType==0 || $saveType == 2)//自动保存草稿或手动保存草稿
         {
             if($vid==-1)//首次保存
             {
-                $sql="INSERT INTO `code` (`saveType`,`cid`,`click`,`title`, `content`, `updatetime`) VALUES ('$saveType', '$cid', '$click', '$title', '$content', '". date('Y-m-d H:i:s') ."')";
+                $sql="INSERT INTO `code` "
+                        . "(`saveType`,`cid`,`click`,`title`, `content`, `updatetime`) "
+                        . "VALUES ('$saveType', '$cid', '$click', '$title', '$content', '". date('Y-m-d H:i:s') ."')";
                 $query=$this->db->query($sql);
                 if($query==true)
                 {
