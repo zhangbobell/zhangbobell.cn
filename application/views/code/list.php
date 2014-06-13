@@ -19,6 +19,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
                     <li><a href="<?php echo base_url();?>code/codeList">代码</a></li>
                     <li><a href="<?php echo base_url();?>code/feelings">心情</a></li>
                     <li><a href="<?php echo base_url();?>code/updateInfo">更新</a></li>
+                    <li><a href="<?php echo base_url();?>code/aboutme">关于我</a></li>
                 </ul>
             </div>
             <div class="auto mt20 w980">
@@ -30,8 +31,11 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
                         <li><a href="./detail/<?php echo urlencode($v->title); ?>"><?php echo $v->title; ?></a></li>
                         <?php endforeach;?>
                     </ul>
-                <?php endforeach;?>       
+                <?php endforeach;?>
+                
+                <div class="pagination"><?php echo $pagination;?><div class="fix"></div></div>
             </div>
+            <div class="auto w980 gc f16 tc p5 btd h60">&copy;&nbsp;<?php echo date('Y')?> zhangbobell.cn</div>
         </div>
 
     </body>

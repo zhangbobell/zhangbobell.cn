@@ -78,12 +78,6 @@ body
     margin-top: 15px;
     margin-bottom: 15px;
 }
-.codeList span
-{
-    font-size: 14px;
-    font-weight: bold;
-    color: #999;
-}
 .codeList li
 {
     margin-top: 5px;
@@ -131,3 +125,174 @@ body
     text-overflow:clip;
     list-style-type: inside;
 }
+
+/* Added Jun 7th, 2014 --- for add comment block*/
+.control
+{
+    margin-top: 10px;  
+}
+.required
+{
+    font-size: 14px;
+    line-height: 28px;
+    color: #999;
+}
+.commentForm input, #comment
+{
+    font-family: 'Lucida Grande', Verdana, Sans-Serif;
+    padding: 4px;
+    line-height: 18px;
+    font-size: 0.9em;
+    color: #555;
+    border-radius: 3px;
+    border:1px solid #909090;
+    -webkit-transition: box-shadow 0.30s ease-in-out;   //只让box-shadow属性做过渡效果！
+    -moz-transition:  box-shadow 0.30s ease-in-out;      //firefox
+}
+.commentForm input:focus, #comment:focus
+{
+    outline:none;
+    border:#87C6F9 1px solid;
+    box-shadow: 0 0 8px rgba(103, 166, 217, 1);
+}
+
+#name, #email, #url
+{
+    width: 220px;
+}
+
+#comment
+{
+    margin-top: 5px;
+}
+
+input.btn
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 58px;
+    height: 32px;
+    line-height: 20px;
+    padding: 3px 10px;
+    font-size: 14px;
+    background-color: #87318c;
+    color: #fff;
+    border:none;
+}
+input.btn:focus
+{
+    box-shadow: none;
+    border:none;
+}
+input.btn:hover
+{
+    background-color: #99389f;
+}
+input.btn:active
+{
+    background-color: #764479;
+    color: #501d53;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3), 0px 1px 0px white;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.4);
+}
+.commentList
+{
+    color: #333;
+    font-size: 16px;
+    line-height: 24px;
+}
+.commentList li
+{
+    list-style: none;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.commentList a:link
+{
+    color: #000;
+}
+.commentAuthor
+{
+    margin-bottom: 5px;
+}
+.commentAuthor .author
+{
+    font-weight: bold;
+}
+.commentContent p
+{
+    margin-bottom: 5px;
+}
+.commentInteraction
+{
+    text-align: right;
+}
+.commentInteraction a
+{
+    margin-right: 15px;
+}
+.control span
+{
+    vertical-align: middle;
+}
+.control span img
+{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 30px;
+    margin-bottom: 2px;
+}
+.commentList a:visited
+{
+    color: #000;
+}
+.pagination
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.pagination a
+{
+    display: block;
+    line-height: 24px;
+    border: #ccc solid 1px;
+    color: #333;
+    border-radius: 2px;
+    padding: 3px 8px;
+    text-decoration: none;
+    float: left;
+    margin-left: 10px;
+    text-align: center;
+}
+.pagination a:link
+{
+    
+}
+.pagination a:active
+{
+    background-color: #eee;
+    color: #ccc;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3), 0px 1px 0px white;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.4);
+}
+.pagination a:hover
+{
+    border: #999 solid 1px;
+    background-color: #eee;
+}
+a.current
+{
+    border: #999 solid 1px;
+    background-color: #eee;
+    color: #333;
+}
+/*.reference
+{
+    width: 80%;
+    background-color: #eee;
+    padding: 5%;
+    margin: 0px auto;
+}*/
+/* End Add Jun 7th, 2014*/

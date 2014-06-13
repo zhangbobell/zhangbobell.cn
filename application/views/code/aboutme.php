@@ -4,17 +4,7 @@
         <title><?php echo $title?></title>
         <meta charset="UTF-8">
         <meta name="keywords" content="<?php echo $code->title; ?> zhangbobell zhangbobell.cn zhangbo 个人主页" />
-        <meta name="description" content="<?php
-            preg_match_all("/[\x{4e00}-\x{9fa5}]*[\，]*[0-9]*/u", $code->content, $match);
-            $desc="";
-            foreach ($match[0] as $v)
-            {
-                $desc.=$v;
-                if(strlen($desc)>297)
-                    break;
-            }
-            echo $desc ?>"   
-        />
+        <meta name="description" content="这是一篇关于我，关于本站的简介，zhangbobell"/>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>public/css/base.css">
         <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>public/css/zxx.lib.css">
         <link type="text/css" rel="stylesheet" href="<?php echo base_url();?>public/css/prettify.css">
@@ -22,7 +12,7 @@
         <script type="text/javascript" src="<?php echo base_url();?>public/js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>public/js/jquery-impromptu.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>public/js/prettify.js"></script>
-        <script type="text/javascript" src="<?php echo base_url();?>public/js/codeDetail.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>public/js/aboutmeDetail.js"></script>
         <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1ddcbc50b79f09d34cdb6c127f894bf5' type='text/javascript'%3E%3C/script%3E"));
@@ -48,19 +38,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         <div class="l w680 pl20 pr20 mt5 mb30 pb10 bbe" id="content">         
             <?php echo $code->content;?>
         </div>
-        <!-- end main content -->
-        
-        <!-- lasted article -->
-        <div class="w220 l ml20 p5">
-            <h4 class="b">最近更新文章</h4>
-            <ul id="recentArticle" class="mt5 codeList">
-                <?php foreach($lasted as $v): ?>
-                <li><a href="./<?php echo $v?>" title="<?php echo $v?>"><?php echo $v?></a></li>
-                <?php endforeach;?>
-            </ul>
-        </div>
-        <!-- end lasted article -->
-        
+        <!-- end main content -->        
         
         <!-- comments -->
         <div class="l w680 pl20 pr20">
