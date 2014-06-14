@@ -162,6 +162,10 @@ $(document).ready(function(){
                     $('#email').val("");
                     $('#url').val("");
                     $('#comment').val("");
+					$('.nameInfo').html("（必填）");
+					$('.emailInfo').html("（必填，不会被公开）");
+					$('.commentInfo').html("");
+					$('.urlInfo').html("");
                     $.prompt("评论发表成功！", {
                         position: { container: '.commentList', x: 200, y: 60, width: 200 }
                     });
