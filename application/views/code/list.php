@@ -28,7 +28,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
                     <ul class="codeList">
                         <span><?php echo $key?></span>
                         <?php foreach ($item as $v):?>
-                        <li><a href="./detail/<?php echo urlencode($v->title); ?>"><?php echo $v->title; ?></a></li>
+                        <li><a href="<?php echo base_url();?>code/detail/<?php echo urlencode($v->title); ?>"><?php echo $v->title; ?></a></li>
                         <?php endforeach;?>
                     </ul>
                 <?php endforeach;?>
