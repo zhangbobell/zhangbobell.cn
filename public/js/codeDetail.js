@@ -184,6 +184,10 @@ String.prototype.trim=function()
     return this.replace(/(^\s*)|(\s*$)/g, "");
 };
 
+$(window).on('resize', function(){
+   setCodeWidth();
+});
+
 
 /*
  * function: validateEmail

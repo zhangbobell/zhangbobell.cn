@@ -36,9 +36,9 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         </div>
     </div>
         <input type="hidden" id="aid" value="<?php echo $code->id;?>">
-        <div class="auto mt20 w980"><h2 class="ml20 mr20"><?php echo $code->title;?></h2></div>
-        <div class="auto mt20 w980"><h6 class="ml20 mr20">更新时间：<?php echo $code->updatetime;?>&nbsp;&nbsp;阅读数：<?php echo $code->click;?></h6></div>
-    <div class="auto mt5 w980">
+        <div class="auto mt20 w700"><h2 class="ml20 mr20"><?php echo $code->title;?></h2></div>
+        <div class="auto mt20 w700"><h6 class="ml20 mr20">更新时间：<?php echo $code->updatetime;?>&nbsp;&nbsp;阅读数：<?php echo $code->click;?></h6></div>
+    <div class="auto mt5 w700">
         
         <!-- main content -->
         <div class="l w680 pl20 pr20 mt5 mb30 pb10 bbe" id="content">         
@@ -83,7 +83,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         
         <div class="fix"></div>    
     </div>
-        <div class="auto w980 gc f16 tc p5 btd h60">&copy;&nbsp;<?php echo date('Y')?> zhangbobell.cn</div>
+        <div class="auto w700 gc f16 tc p5 btd h60">&copy;&nbsp;<?php echo date('Y')?> zhangbobell.cn</div>
         
     </body>
 </html>

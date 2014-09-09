@@ -29,7 +29,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
                     </ul>
                 </div>
             </div>
-            <div class="auto mt20 w980 pl50 m-list">
+            <div class="auto mt20 w700 pl50 m-list">
                 <?php if(!isset($list)||$list===NULL)die("没有代码"); ?>
                 <?php foreach ($list as $key=> $item):?>
                     <ul class="codeList">
@@ -42,7 +42,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
                 
                 <div class="pagination"><?php echo $pagination;?><div class="fix"></div></div>
             </div>
-            <div class="auto w980 gc f16 tc p15 btd h60 m-footer">&copy;&nbsp;<?php echo date('Y')?> zhangbobell.cn</div>
+            <div class="auto w700 gc f16 tc p15 btd h60 m-footer">&copy;&nbsp;<?php echo date('Y')?> zhangbobell.cn</div>
         </div>
 
     </body>
