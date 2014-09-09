@@ -171,6 +171,7 @@
 .pt30{padding-top:30px;}
 .pr30{padding-right:30px;}
 .pb30{padding-bottom:30px;}
+.pl50{padding-left:50px;}
 /* border-color name rule: border(b)-position(l/r/t/b/d)-width(null/2)-style(null/sh)-color(first one letter/first two letter) |-> All colors are safe color*/
 .bd0{border:0; outline:0;}
 .bdc{border:1px solid #ccc;}

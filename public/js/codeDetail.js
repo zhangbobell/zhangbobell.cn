@@ -12,7 +12,8 @@ var passedImg="<img src=\"../../public/images/check_alt_p.png\">";
 var xPassedImg="<img src=\"../../public/images/x_alt_p.png\">";
 
 $(document).ready(function(){
-    
+
+    setCodeWidth(); // 响应式布局，设定 pre 标签的宽度，add on Sept 9th, 2014
     
     getComment();
  
@@ -277,4 +278,13 @@ function reply(author)
     var t=$('#comment').val();
     $("#comment").val("").focus().val(t);
     return false;
+}
+
+function setCodeWidth()
+{
+    var windowW = $(window).width();
+    if (windowW < 700) {
+        var w = windowW-62;
+        $('.prettyprint').width(w);
+    }
 }

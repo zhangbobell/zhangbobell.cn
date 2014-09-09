@@ -11,6 +11,7 @@ class Code extends CI_Controller
     function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->model('homepage', 'hp');
     }
     
     private $itemPerPage=20;
@@ -20,32 +21,19 @@ class Code extends CI_Controller
         $page='code';
         if ( ! file_exists("application/views/code/$page.php"))
           show_404();
-        
-        //iconv('GB2312', 'UTF-8', str)将字符串的编码从GB2312转到UTF-8 
-        $sql="select `id`, `updatetime`,`click`, `title`, `content` from `code` where `title`='". urldecode($title) ."' limit 1";
-        $query = $this->db->query($sql);
-        foreach ($query->result_array() as $item)
-        {
-            $data['code']->id = $item['id'];
-            $data['code']->updatetime = $item['updatetime'];
-            $data['code']->click = $item['click'];
-            $data['code']->title = $item['title'];
-            $data['code']->content = $item['content'];
-        }
-        
-        //最近更新的5篇文章
-        $sql="select `title` from `code` where `saveType`='1' order by `updatetime` DESC LIMIT 5";
-        $query = $this->db->query($sql);
-        foreach ($query->result_array() as $item)
-        {
-            $data['lasted'][] = $item['title'];
-        }
-        
-        //浏览时浏览量自增
-        $sql="UPDATE `code` SET `click`=`click`+1 WHERE `title`='". urldecode($title) ."' LIMIT 1";
-        $query = $this->db->query($sql);
-        
+
+//        echo iconv('GB2312', 'UTF-8', $title);
+//        echo "<br />". urldecode($title);
+//        echo "<br />". urlencode($title);
+//        echo "<br />". $title;
+//        echo "<br />". iconv('UTF-8', 'GB2312', urldecode($title));
+
+
+        $data['code'] = $this->hp->getArticle(urldecode($title));
+        $data['lasted'] = $this->hp->getLatestArticles(5);
         $data['title'] = $data['code']->title." zhangbobell.cn";
+
+        $this->hp->selfIncrease($title);
         
         $this->load->view('code/'.$page, $data);
     }
@@ -56,32 +44,9 @@ class Code extends CI_Controller
           show_404();
         
         $data['title'] = "代码列表";
-        
-        $sql="SELECT `id`, `title`,date_format(`updatetime`,'%Y-%m-%d') as `date` "
-                . "FROM `code` "
-                . "WHERE `saveType`='1' AND `cid`='1' "
-                . "ORDER by `updatetime` DESC "
-                . "LIMIT $pageNum, $this->itemPerPage ";
-        
-        $query = $this->db->query($sql);
-        
-        foreach ($query->result_array() as $key => $item)
-        {
-            $data['list'][$item['date']][$key]->id=$item['id'];
-            $data['list'][$item['date']][$key]->date = $item['date'];
-            $data['list'][$item['date']][$key]->title = $item['title'];
-        }
-        
-        //获取总的记录数
-        $query = $this->db->query("select * from code where `cid`='1'");
-        $totalRecord = $query->num_rows();
-        
-        //生成分页的超级链接
-        $this->load->library('pagination');
-        $config=$this->pageConfig(base_url().'code/codeList/', $totalRecord);  
-        $this->pagination->initialize($config); 
-        $data['pagination']=$this->pagination->create_links();
-        
+        $data['list'] = $this->hp->getList(1, $pageNum, $this->itemPerPage);
+        $data['pagination'] = $this->getPagination(1);
+
         $this->load->view('code/list', $data);
     }
     
@@ -91,31 +56,10 @@ class Code extends CI_Controller
         {
           show_404();        
         }
+
         $data['title'] = "文章列表";
-        
-        $sql="SELECT `id`, `title`,date_format(`updatetime`,'%Y-%m-%d') as `date` "
-                . "FROM `code` "
-                . "WHERE `saveType`='1' AND `cid`='2' "
-                . "ORDER by `updatetime` DESC "
-                . "LIMIT $pageNum, $this->itemPerPage ";
-        $query = $this->db->query($sql);
-        
-        foreach ($query->result_array() as $key => $item)
-        {
-            $data['list'][$item['date']][$key]->id=$item['id'];
-            $data['list'][$item['date']][$key]->date = $item['date'];
-            $data['list'][$item['date']][$key]->title = $item['title'];
-        }
-        
-        //获取总的记录数
-        $query = $this->db->query("select * from code where `cid`='2'");
-        $totalRecord = $query->num_rows();
-        
-        //生成分页的超级链接
-        $this->load->library('pagination');
-        $config=$this->pageConfig(base_url().'code/feelings/', $totalRecord);  
-        $this->pagination->initialize($config); 
-        $data['pagination']=$this->pagination->create_links();
+        $data['list'] = $this->hp->getList(2, $pageNum, $this->itemPerPage);
+        $data['pagination'] = $this->getPagination(2);
         
         $this->load->view('code/list', $data);
     }
@@ -124,33 +68,11 @@ class Code extends CI_Controller
     {
         if ( ! file_exists("application/views/code/list.php"))
           show_404();
-        
+
         $data['title'] = "文章列表";
-        
-        $sql="SELECT `id`, `title`,date_format(`updatetime`,'%Y-%m-%d') as `date` "
-                . "FROM `code` "
-                . "WHERE `saveType`='1' AND `cid`='3' "
-                . "ORDER by `updatetime` DESC "
-                . "LIMIT $pageNum, $this->itemPerPage ";
-        $query = $this->db->query($sql);
-        
-        foreach ($query->result_array() as $key => $item)
-        {
-            $data['list'][$item['date']][$key]->id=$item['id'];
-            $data['list'][$item['date']][$key]->date = $item['date'];
-            $data['list'][$item['date']][$key]->title = $item['title'];
-        }
-        
-        //获取总的记录数
-        $query = $this->db->query("select * from code where `cid`='3'");
-        $totalRecord = $query->num_rows();
-        
-        //生成分页的超级链接
-        $this->load->library('pagination');
-        $config=$this->pageConfig(base_url().'code/updateInfo/', $totalRecord);  
-        $this->pagination->initialize($config); 
-        $data['pagination']=$this->pagination->create_links();
-        
+        $data['list'] = $this->hp->getList(3, $pageNum, $this->itemPerPage);
+        $data['pagination'] = $this->getPagination(3);
+
         $this->load->view('code/list', $data);
     }
     
@@ -160,16 +82,8 @@ class Code extends CI_Controller
         if(! file_exists("application/views/code/$page.php"))
             show_404 ();
         
-        $data['title']='创建Code';
-        
-        $sql="SELECT * FROM `category` WHERE `isValid`='1'";
-        $query = $this->db->query($sql);
-        
-        foreach ($query->result_array() as $key => $item)
-        {
-            $data['category'][$key]->id=$item['id'];
-            $data['category'][$key]->name = $item['name'];
-        }
+        $data['title'] = '创建Code';
+        $data['category'] = $this->hp->getCategory();
         
         $this->load->view('code/'.$page, $data);
     }
@@ -182,72 +96,22 @@ class Code extends CI_Controller
         $click = $this->input->post('click', true);
         $vid = $this->input->post('vid', true);
         $content = $_POST['content'];
-        
-        date_default_timezone_set('Asia/Shanghai');
-        if($saveType==0 || $saveType == 2)//自动保存草稿或手动保存草稿
+
+        if ($saveType == 0 || $saveType == 2)//自动保存草稿或手动保存草稿
         {
-            if($vid==-1)//首次保存
-            {
-                $sql="INSERT INTO `code` "
-                        . "(`saveType`,`cid`,`click`,`title`, `content`, `updatetime`) "
-                        . "VALUES ('$saveType', '$cid', '$click', '$title', '$content', '". date('Y-m-d H:i:s') ."')";
-                $query=$this->db->query($sql);
-                if($query==true)
-                {
-                    $query =  $this->db->query("SELECT LAST_INSERT_ID() as `vid`");
-                    foreach ($query->result_array() as $item)
-                        $vid=$item['vid'];
-                    echo $vid;
-                }
-                else
-                    echo '-1';
-                
-            }
+            if($vid == -1)//首次保存
+                echo $this->hp->insertArticle($saveType, $cid, $click, $title, $content);
             else
-            {
-                $sql="UPDATE `code` "
-                        . "SET `saveType`='$saveType', "
-                        . "`cid`='$cid', "
-                        . "`click`='$click', "
-                        . "`title` = '$title', "
-                        . "`content`='$content', "
-                        . "`updatetime`='". date('Y-m-d H:i:s') ."' "
-                        . "WHERE `id`='$vid'";
-                $query=$this->db->query($sql);
-                if($query==true)
-                    echo $vid;
-                else
-                    echo '-1';
-            }
+                echo $this->hp->updateArticle($saveType, $cid, $vid, $click, $title, $content);
         }
-        if($saveType==1)//点击‘保存按钮’
-        {
-            $sql="UPDATE `code` "
-                        . "SET `saveType`='$saveType', "
-                        . "`cid`='$cid', "
-                        . "`click`='$click', "
-                        . "`title` = '$title', "
-                        . "`content`='$content', "
-                        . "`updatetime`='". date('Y-m-d H:i:s') ."' "
-                        . "WHERE `id`='$vid'";
-                $query=$this->db->query($sql);
-            if($query==true)
-                echo '1';
-            else
-                echo '0';
-        }
+        if ($saveType == 1)//点击‘保存按钮’
+            echo $this->hp->updateArticle($saveType, $cid, $vid, $click, $title, $content);
     }
     
     public function deleteDraft()
     {
         $id = $this->input->post('id', true);
-        
-        $sql="delete from `code` where `id`='$id'";
-        $query=$this->db->query($sql);
-        if($query==true)
-            echo '1';
-        else
-            echo '0';
+        echo $this->hp->deleteArticle($id);
     }
     
     //Add on June 12th, 2014 to handle the ajax request about adding comments
@@ -263,15 +127,10 @@ class Code extends CI_Controller
         $email = htmlspecialchars($email,ENT_QUOTES);
         $url = htmlspecialchars($url,ENT_QUOTES);
         $comment = htmlspecialchars($comment,ENT_QUOTES);
-        
-        $sql="INSERT INTO `comment` "
-                        . "(`articleId`,`author`,`updatetime`,`email`, `url`, `content`) "
-                        . "VALUES ('$aid', '$author', '". date('Y-m-d H:i:s') ."', '$email', '$url', '$comment')";
-        $query=$this->db->query($sql);
-        if($query==true)
-        {
+
+        $query = setComment($aid, $author, $email, $url, $comment);
+        if ($query == true)
             echo '1';
-        }
         else
             echo '0';
     }
@@ -279,20 +138,9 @@ class Code extends CI_Controller
     //Add on June 12th, 2014 to get comments from database
     public function getCommentData()
     {
-        $aid=  $this->input->post('aid', true);
-        $sql="select `id`, `author`, `url`, `updatetime`, `content` from `comment` where `articleId`='$aid' order by `updatetime` ASC";
-        $query = $this->db->query($sql);
-        
-        $data = array();
-        foreach ($query->result_array() as $key => $item)
-        {
-            $data[$key]['id'] = $item['id'];
-            $data[$key]['author'] = $item['author'];
-            $data[$key]['url'] = $item['url'];
-            $data[$key]['updatetime'] = $item['updatetime'];
-            $data[$key]['content'] = $item['content'];
-        }
-        
+        $aid =  $this->input->post('aid', true);
+
+        $data = $this->hp->getComment($aid);
         echo json_encode($data);
     }
     
@@ -342,5 +190,25 @@ class Code extends CI_Controller
         $data['title'] = $data['code']->title." zhangbobell.cn";
         
         $this->load->view('code/'.$page, $data);
+    }
+
+    /*
+     * getPagination : 获取分页链接的数组
+     * param : $cid -- 类目id
+     * return : $pagination -- 分页链接的数组
+     */
+    public function getPagination($cid)
+    {
+        $this->load->model("homepage", 'hp');
+        //获取总的记录数
+        $totalRecord = $this->hp->getCateNum($cid);
+
+        //生成分页的超级链接
+        $this->load->library('pagination');
+        $config = $this->pageConfig(base_url().'code/codeList/', $totalRecord);
+        $this->pagination->initialize($config);
+        $pagination = $this->pagination->create_links();
+
+        return $pagination;
     }
 }
