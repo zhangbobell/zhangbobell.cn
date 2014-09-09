@@ -280,6 +280,7 @@ function reply(author)
     return false;
 }
 
+
 function setCodeWidth()
 {
     var windowW = $(window).width();
