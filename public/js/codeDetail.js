@@ -135,16 +135,8 @@ $(document).ready(function(){
             return;
         }
         
-        //怎样通过数组的方式给ajax函数传参？ --June 12th, 2014
-        /*var comment =  new Array();
-        comment['id']=$('#aid').val();
-        comment['author']=$('#name').val().trim();
-        comment['email']=$('#email').val().trim();
-        comment['url']=$('#url').val().trim();
-        comment['comment']=$('#comment').val().trim();*/
-        
         $.ajax({
-            url:'../addCommentData',
+            url:'code/addCommentData',
             type:'POST',
             data:{
                 'aid':$('#aid').val(),
@@ -176,6 +168,10 @@ $(document).ready(function(){
                 }
        });// End Ajax 
     });
+
+    uParse('#content', {
+        rootPath: '../../public/third-party/UE/'
+    })
     
 });
 
@@ -234,7 +230,7 @@ function validateUrl(temp)
 function getComment()
 {
     $.ajax({
-            url:'../getCommentData',
+            url:'code/getCommentData',
             type:'POST',
             data:{
                 'aid':$('#aid').val()

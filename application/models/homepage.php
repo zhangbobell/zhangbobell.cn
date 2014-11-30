@@ -97,20 +97,15 @@ class Homepage extends CI_Model {
      *          $content -- 文章内容
      * return : $vid -- 文章的id or -1 -- 插入失败
      */
-    function insertArticle($saveType, $cid, $click, $title, $content)
+    function insertArticle($saveType, $cid, $click, $title, $summary, $content)
     {
+        $date = date('Y-m-d H:i:s');
         $sql="INSERT INTO `code` "
-            . "(`saveType`,`cid`,`click`,`title`, `content`, `updatetime`) "
-            . "VALUES ('$saveType', '$cid', '$click', '$title', '$content', '". date('Y-m-d H:i:s') ."')";
-        $query=$this->db->query($sql);
-        if($query==true)
-        {
-            $query =  $this->db->query("SELECT LAST_INSERT_ID() as `vid`");
-            foreach ($query->result_array() as $item)
-                $vid=$item['vid'];
-            return $vid;
-        }
-        return -1;
+            . "(`saveType`,`cid`,`click`,`title`, `summary`, `content`, `updatetime`) "
+            . "VALUES (?, ?, ?, ?, ?, ?, '$date')";
+
+        return $this->db->query($sql, array($saveType, $cid, $click, $title, $summary, $content));
+
     }
 
     /*
@@ -191,20 +186,11 @@ class Homepage extends CI_Model {
      */
     function getArticle($title)
     {
-        $art = new stdClass();
         //iconv('GB2312', 'UTF-8', str)将字符串的编码从GB2312转到UTF-8
-        $sql="select `id`, `updatetime`,`click`, `title`, `content` from `code` where `title`='$title' limit 1";
-        $query = $this->db->query($sql);
-        foreach ($query->result_array() as $item)
-        {
-            $art->id = $item['id'];
-            $art->updatetime = $item['updatetime'];
-            $art->click = $item['click'];
-            $art->title = $item['title'];
-            $art->content = $item['content'];
-        }
+        $sql="select `id`, `updatetime`,`click`, `title`, `summary`, `content` from `code` where `title`=? limit 1";
+        $res = $this->db->query($sql, $title)->result_array();
 
-        return $art;
+        return $res[0];
     }
 
     /*

@@ -18,6 +18,12 @@ define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
 
+define('JS_DIR', 'public/js');
+define('CSS_DIR', 'public/css');
+define('UP_DIR', 'public/upload');
+define('TP_DIR', 'public/third-party');
+define('UE_CONFIG_PATH', 'public/third-party/UE/php/config.json');
+
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes

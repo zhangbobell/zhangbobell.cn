@@ -22,16 +22,9 @@ class Code extends CI_Controller
         if ( ! file_exists("application/views/code/$page.php"))
           show_404();
 
-//        echo iconv('GB2312', 'UTF-8', $title);
-//        echo "<br />". urldecode($title);
-//        echo "<br />". urlencode($title);
-//        echo "<br />". $title;
-//        echo "<br />". iconv('UTF-8', 'GB2312', urldecode($title));
-
 
         $data['code'] = $this->hp->getArticle(urldecode($title));
         $data['lasted'] = $this->hp->getLatestArticles(5);
-        $data['title'] = $data['code']->title." zhangbobell.cn";
 
         $this->hp->selfIncrease($title);
         
@@ -90,22 +83,14 @@ class Code extends CI_Controller
     
     public function addCodeData()
     {
-        $title = $this->input->post('title', true);
         $saveType = $this->input->post('saveType', true);
         $cid = $this->input->post('cid', true);
         $click = $this->input->post('click', true);
-        $vid = $this->input->post('vid', true);
-        $content = $_POST['content'];
+        $title = $this->input->post('title', true);
+        $summary = $this->input->post('summary', true);
+        $content = $this->input->post('content', false);
 
-        if ($saveType == 0 || $saveType == 2)//自动保存草稿或手动保存草稿
-        {
-            if($vid == -1)//首次保存
-                echo $this->hp->insertArticle($saveType, $cid, $click, $title, $content);
-            else
-                echo $this->hp->updateArticle($saveType, $cid, $vid, $click, $title, $content);
-        }
-        if ($saveType == 1)//点击‘保存按钮’
-            echo $this->hp->updateArticle($saveType, $cid, $vid, $click, $title, $content);
+        echo $this->hp->insertArticle($saveType, $cid, $click, $title, $summary, $content);
     }
     
     public function deleteDraft()
@@ -128,7 +113,7 @@ class Code extends CI_Controller
         $url = htmlspecialchars($url,ENT_QUOTES);
         $comment = htmlspecialchars($comment,ENT_QUOTES);
 
-        $query = setComment($aid, $author, $email, $url, $comment);
+        $query = $this->hp->setComment($aid, $author, $email, $url, $comment);
         if ($query == true)
             echo '1';
         else
@@ -174,6 +159,7 @@ class Code extends CI_Controller
         //iconv('GB2312', 'UTF-8', str)将字符串的编码从GB2312转到UTF-8 
         $sql="select `id`, `updatetime`,`click`, `title`, `content` from `code` where `title`='". urldecode($title) ."' limit 1";
         $query = $this->db->query($sql);
+        $data = array();
         foreach ($query->result_array() as $item)
         {
             $data['code']->id = $item['id'];

@@ -1,0 +1,1 @@
+<script type="text/javascript" src="<?php echo base_url() . JS_DIR ;?>/user/manage_blog.js"></script>

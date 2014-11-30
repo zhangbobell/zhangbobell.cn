@@ -113,6 +113,12 @@ body
     text-indent: 2em;
     font-family: Georgia;
 }
+#content {
+    font-family: Georgia;
+}
+#content li {
+    list-style-position: inside;
+}
 
 #recentArticle li
 {
