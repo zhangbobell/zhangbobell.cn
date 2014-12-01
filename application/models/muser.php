@@ -80,4 +80,20 @@ class Muser extends CI_Model {
         return $this->db->query($sql, array($delete_id));
     }
 
+    public function get_all_comment() {
+        $sql = "SELECT `comment`.`id`, `comment`.`updatetime`, `title`, `author`, `email`, `url`, `comment`.`content`
+                FROM `comment`
+                LEFT JOIN `code`
+                ON `comment`.`articleId` = `code`.`id`
+                ORDER BY `comment`.`updatetime` DESC";
+
+        return $this->db->query($sql);
+    }
+
+    function delete_comment($delete_id) {
+        $sql = "DELETE FROM `comment` WHERE `id` = ?";
+
+        return $this->db->query($sql, array($delete_id));
+    }
+
 }

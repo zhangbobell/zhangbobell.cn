@@ -147,4 +147,44 @@ class User extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function manage_comment($page = 'manage_comment') {
+        if ( ! file_exists("application/views/user/$page.php")) {
+            show_404();
+        }
+
+        $comment_list = $this->muser->get_all_comment();
+
+        $data['title'] = '管理评论';
+        $data['user'] = $this->session->all_userdata();
+        $data['comment_list'] = $comment_list->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/banner');
+        $this->load->view('templates/sidebar');
+        $this->load->view('user/'.$page);
+        $this->load->view('templates/footer_script');
+        $this->load->view('templates/footer');
+    }
+
+    function delete_comment($page = 'delete_comment') {
+
+        if ( ! file_exists("application/views/user/$page.php")) {
+            show_404();
+        }
+
+        $delete_id = $this->input->get('id', true);
+        $res = $this->muser->delete_comment($delete_id);
+
+        $data['title'] = '删除评论';
+        $data['user'] = $this->session->all_userdata();
+        $data['res'] = $res;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/banner');
+        $this->load->view('templates/sidebar');
+        $this->load->view('user/'.$page);
+        $this->load->view('templates/footer_script');
+        $this->load->view('templates/footer');
+    }
+
 }

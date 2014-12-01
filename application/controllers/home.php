@@ -20,7 +20,10 @@ class Home extends CI_Controller
         }
         $data['title'] = "欢迎访问张博的个人主页";
 
-        $this->load->view('home/'.$page, $data);
+        $this->load->view('home/header_' . $page, $data);
+        $this->load->view('templates/a_nav');
+        $this->load->view('home/'. $page, $data);
+        $this->load->view('home/footer_'. $page, $data);
     }
 }
 

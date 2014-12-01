@@ -66,7 +66,7 @@ class Ueditor extends CI_Controller {
      */
     public function action_upload() {
         $CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", '', file_get_contents(UE_CONFIG_PATH)), true);
-        $serverPrefix = base_url() . UP_DIR;
+        $serverPrefix = UP_DIR;
 
         $base64 = "upload";
         switch (htmlspecialchars($_GET['action'])) {
@@ -134,7 +134,7 @@ class Ueditor extends CI_Controller {
      */
     public function action_list() {
         $CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", '', file_get_contents(UE_CONFIG_PATH)), true);
-        $serverPrefix = base_url() . UP_DIR;
+        $serverPrefix = UP_DIR;
 
         switch ($_GET['action']) {
             /* 列出文件 */
@@ -224,7 +224,7 @@ class Ueditor extends CI_Controller {
      */
     public function action_crawler() {
         $CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", '', file_get_contents(UE_CONFIG_PATH)), true);
-        $serverPrefix = base_url() . UP_DIR;;
+        $serverPrefix = UP_DIR;
         /* 上传配置 */
         $config = array(
             "pathFormat" => $serverPrefix.$CONFIG['catcherPathFormat'],

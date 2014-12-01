@@ -25,48 +25,68 @@ class Code extends CI_Controller
 
         $data['code'] = $this->hp->getArticle(urldecode($title));
         $data['lasted'] = $this->hp->getLatestArticles(5);
+        $data['title'] = $title;
 
         $this->hp->selfIncrease($title);
-        
-        $this->load->view('code/'.$page, $data);
+
+        $this->load->view('templates/a_header', $data);
+        $this->load->view('code/header_add_' . $page);
+        $this->load->view('templates/a_nav');
+        $this->load->view('code/'.$page);
+        $this->load->view('templates/a_footer_script');
+        $this->load->view('code/footer_add_' . $page);
+        $this->load->view('templates/a_footer');
     }
     
     public function codeList($pageNum='0')
     {
-        if ( ! file_exists("application/views/code/list.php"))
+        $page = 'list';
+        if ( ! file_exists("application/views/code/$page.php"))
           show_404();
         
         $data['title'] = "代码列表";
         $data['list'] = $this->hp->getList(1, $pageNum, $this->itemPerPage);
         $data['pagination'] = $this->getPagination(1);
 
-        $this->load->view('code/list', $data);
+        $this->load->view('templates/a_header', $data);
+        $this->load->view('templates/a_nav');
+        $this->load->view('code/'.$page);
+        $this->load->view('templates/a_footer_script');
+        $this->load->view('templates/a_footer');
     }
     
     public function feelings($pageNum='0')
     {
-        if ( ! file_exists("application/views/code/list.php"))
-        {
-          show_404();        
-        }
+        $page = 'list';
+        if ( ! file_exists("application/views/code/$page.php"))
+            show_404();
 
         $data['title'] = "文章列表";
         $data['list'] = $this->hp->getList(2, $pageNum, $this->itemPerPage);
         $data['pagination'] = $this->getPagination(2);
-        
-        $this->load->view('code/list', $data);
+
+        $this->load->view('templates/a_header', $data);
+        $this->load->view('templates/a_nav');
+        $this->load->view('code/'.$page);
+        $this->load->view('templates/a_footer_script');
+        $this->load->view('templates/a_footer');
     }
     
     public function updateInfo($pageNum='0')
     {
-        if ( ! file_exists("application/views/code/list.php"))
-          show_404();
+        $page = 'list';
+        if ( ! file_exists("application/views/code/$page.php"))
+            show_404();
 
         $data['title'] = "文章列表";
         $data['list'] = $this->hp->getList(3, $pageNum, $this->itemPerPage);
         $data['pagination'] = $this->getPagination(3);
 
-        $this->load->view('code/list', $data);
+        $this->load->view('templates/a_header', $data);
+        $this->load->view('templates/a_nav');
+        $this->load->view('code/'.$page);
+        $this->load->view('templates/a_footer_script');
+        $this->load->view('templates/a_footer');
     }
     
     public function addCode()
@@ -152,30 +172,49 @@ class Code extends CI_Controller
     
     public function aboutme($title='关于我')
     {
-        $page='aboutme';
+//        $page='aboutme';
+//        if ( ! file_exists("application/views/code/$page.php"))
+//          show_404();
+//
+//        //iconv('GB2312', 'UTF-8', str)将字符串的编码从GB2312转到UTF-8
+//        $sql="select `id`, `updatetime`,`click`, `title`, `content` from `code` where `title`='". urldecode($title) ."' limit 1";
+//        $query = $this->db->query($sql);
+//        $data = array();
+//        foreach ($query->result_array() as $item)
+//        {
+//            $data['code']->id = $item['id'];
+//            $data['code']->updatetime = $item['updatetime'];
+//            $data['code']->click = $item['click'];
+//            $data['code']->title = $item['title'];
+//            $data['code']->content = $item['content'];
+//        }
+//
+//        //浏览时浏览量自增
+//        $sql="UPDATE `code` SET `click`=`click`+1 WHERE `title`='". urldecode($title) ."' LIMIT 1";
+//        $query = $this->db->query($sql);
+//
+//        $data['title'] = $data['code']->title." zhangbobell.cn";
+//
+//        $this->load->view('code/'.$page, $data);
+
+        $page='code';
         if ( ! file_exists("application/views/code/$page.php"))
-          show_404();
-        
-        //iconv('GB2312', 'UTF-8', str)将字符串的编码从GB2312转到UTF-8 
-        $sql="select `id`, `updatetime`,`click`, `title`, `content` from `code` where `title`='". urldecode($title) ."' limit 1";
-        $query = $this->db->query($sql);
-        $data = array();
-        foreach ($query->result_array() as $item)
-        {
-            $data['code']->id = $item['id'];
-            $data['code']->updatetime = $item['updatetime'];
-            $data['code']->click = $item['click'];
-            $data['code']->title = $item['title'];
-            $data['code']->content = $item['content'];
-        }
-        
-        //浏览时浏览量自增
-        $sql="UPDATE `code` SET `click`=`click`+1 WHERE `title`='". urldecode($title) ."' LIMIT 1";
-        $query = $this->db->query($sql);
-        
-        $data['title'] = $data['code']->title." zhangbobell.cn";
-        
-        $this->load->view('code/'.$page, $data);
+            show_404();
+
+
+        $data['code'] = $this->hp->getArticle(urldecode($title));
+        $data['lasted'] = $this->hp->getLatestArticles(5);
+        $data['title'] = $title;
+
+        $this->hp->selfIncrease($title);
+
+        $this->load->view('templates/a_header', $data);
+        $this->load->view('code/header_add_' . $page);
+        $this->load->view('templates/a_nav');
+        $this->load->view('code/'.$page);
+        $this->load->view('templates/a_footer_script');
+        $this->load->view('code/footer_add_' . $page);
+        $this->load->view('templates/a_footer');
     }
 
     /*
