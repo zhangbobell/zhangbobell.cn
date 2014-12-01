@@ -25,7 +25,7 @@ class Code extends CI_Controller
 
         $data['code'] = $this->hp->getArticle(urldecode($title));
         $data['lasted'] = $this->hp->getLatestArticles(5);
-        $data['title'] = $title;
+        $data['title'] = urldecode($title);
 
         $this->hp->selfIncrease($title);
 
