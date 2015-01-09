@@ -148,6 +148,8 @@ $(document).ready(function(){
             dataType:'json',
             success:function(json){
                 //console.log(json);
+
+                $("#info").html('');
                 if(json == '1')
                 {
                     getComment();
@@ -165,12 +167,17 @@ $(document).ready(function(){
                 }
                 else
                     $.prompt("评论发表失败！");
-                }
+
+            },
+            beforeSend:function()
+            {
+                $("#info").html("<p class='text-center'><img src='public/images/loading.gif' alt='loading'></p>");
+            }
        });// End Ajax 
     });
 
     uParse('#content', {
-        rootPath: '../../public/third-party/UE/'
+        rootPath: 'public/third-party/UE/'
     })
     
 });
@@ -286,6 +293,6 @@ function setCodeWidth()
     var windowW = $(window).width();
     if (windowW < 700) {
         var w = windowW-62;
-        $('.prettyprint').width(w);
+        $('.syntaxhighlighter').width(w);
     }
 }

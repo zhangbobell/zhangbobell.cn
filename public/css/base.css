@@ -108,18 +108,22 @@ body
 }
 #content p
 {
-    line-height: 1.5em;
-    margin-bottom: 20px;
-    text-indent: 2em;
+    line-height: 1.75em;
+    margin: 20px 0;
     font-family: Georgia;
 }
 #content {
     font-family: Georgia;
 }
 #content li {
-    list-style-position: inside;
+    margin-left: 5px;
 }
-
+#content h1 {
+    line-height: 2em;
+}
+#content h2 {
+    line-height: 1.5em;
+}
 #recentArticle li
 {
     width:208px; 

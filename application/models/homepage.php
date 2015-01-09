@@ -57,7 +57,7 @@ class Homepage extends CI_Model {
      */
     function getComment($aid)
     {
-        $sql="select `id`, `author`, `url`, `updatetime`, `content` from `comment` where `articleId`=$aid order by `updatetime` ASC";
+        $sql="select `id`, `author`, `url`, `updatetime`, `content` from `comment` where `articleId`=$aid order by `updatetime` DESC";
         $query = $this->db->query($sql);
 
         $data = array();

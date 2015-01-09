@@ -90,6 +90,22 @@ class Muser extends CI_Model {
         return $this->db->query($sql);
     }
 
+    public function get_comment($comment_id) {
+        $sql = "SELECT `id`, `articleId`, `author`, `email`, `content`
+                FROM `comment`
+                WHERE `id` = ?
+                LIMIT 1";
+
+        return $this->db->query($sql, array($comment_id));
+    }
+
+    public function insert_reply($articleId, $replyTo, $author, $email, $url, $content) {
+        $sql = "INSERT INTO `comment` (`articleId`, `replyTo`, `updatetime`, `author`, `email`, `url`, `content`)
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        return $this->db->query($sql, array($articleId, $replyTo, date('Y-m-d H:i:s'), $author, $email, $url, $content));
+    }
+
     function delete_comment($delete_id) {
         $sql = "DELETE FROM `comment` WHERE `id` = ?";
 

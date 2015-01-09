@@ -38,6 +38,7 @@
                 <textarea onpropertychange="if(value.length>100) value=value.substr(0,500)"  id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="请留下您的评论..."></textarea>
                 </div>
                 <input type="button" class="btn" id="submitComment" value="提 交">
+                <div id="info"></div>
             </form>
             <!-- end comment form -->
             

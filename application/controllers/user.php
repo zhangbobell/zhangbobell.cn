@@ -187,4 +187,91 @@ class User extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function reply_comment($page = 'reply_comment') {
+        if ( ! file_exists("application/views/user/$page.php")) {
+            show_404();
+        }
+
+        $comment_id = $this->input->get('id', true);
+        $res = $this->muser->get_comment($comment_id)->result_array();
+
+        $data['title'] = '回复评论';
+        $data['user'] = $this->session->all_userdata();
+        $data['comment'] = $res[0];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/banner');
+        $this->load->view('templates/sidebar');
+        $this->load->view('user/'.$page);
+        $this->load->view('templates/footer_script');
+        $this->load->view('templates/footer');
+    }
+
+    public function reply_comment_data($page = 'reply_comment_res') {
+
+        if ( ! file_exists("application/views/user/$page.php")) {
+            show_404();
+        }
+
+        $email = $this->input->post('email', true);
+        $id = $this->input->post('id', true);
+        $reply = $this->input->post('reply', true);
+        $articleId = $this->input->post('articleId', true);
+        $zb = 'zhangbobell';
+        $zb_email = 'zhangbobell@163.com';
+        $zb_home = 'zhangbobell.cn';
+
+        $res = $this->muser->insert_reply($articleId, $id, $zb, $zb_email, $zb_home, $reply);
+
+
+        $article = $this->muser->get_article($articleId);
+        $art_url = "<a href=\"". base_url() ."code/detail/" . $article['title'] . "\" target=\"_blank\">" . $article['title'] . "</a>";
+
+        $res = $res && $this->send_email($email, $reply, $art_url);
+
+        $data['title'] = '回复评论';
+        $data['user'] = $this->session->all_userdata();
+        $data['res'] = $res;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/banner');
+        $this->load->view('templates/sidebar');
+        $this->load->view('user/'.$page);
+        $this->load->view('templates/footer_script');
+        $this->load->view('templates/footer');
+    }
+
+    public function send_email($email, $reply_content, $art_url) {
+
+        $config = Array(
+            'mailtype' => 'html',
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.163.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'zhangbobell@163.com',
+            'smtp_pass' => '1991530123',
+            'crlf' => '\r\n'
+        );
+
+        $this->load->library('email',$config);
+        $this->email->set_newline("/r/n");
+
+        $this->email->from('zhangbobell@163.com','张博');
+        $this->email->to($email);
+        $this->email->subject('Hello from zhangbobell');
+        $this->email->message('您好，感谢您的评论，您在 zhangbobell.cn 的评论有了回复："' . $reply_content . '"。<br />点击查看'. $art_url);
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            show_error($this->email->print_debugger());
+            return false;
+        }
+
+    }
+
+    public function phpinfo() {
+        echo phpinfo();
+    }
+
 }

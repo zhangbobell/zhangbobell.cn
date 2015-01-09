@@ -8,7 +8,7 @@
             <th>Email</th>
             <th>个人主页</th>
             <th>留言内容</th>
-            <th>操作</th>
+            <th colspan="2">操作</th>
         </tr>
         <?php foreach($comment_list as $key => $row):?>
             <tr data-i="<?php echo $key; ?>">
@@ -19,6 +19,7 @@
                         <td data-i="<?php echo $k; ?>"><?php echo $v; ?></td>
                     <?php endif;?>
                 <?php endforeach;?>
+                <td><a href="user/reply_comment/?id=<?php echo $row['id']?>">回复</a></td>
                 <td><a href="user/delete_comment/?id=<?php echo $row['id']?>">删除</a></td>
             </tr>
         <?php endforeach;?>
